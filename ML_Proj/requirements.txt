@@ -3,3 +3,16 @@ pandas
 scikit-learn
 requests
 pykoda
+7z
+appdirs
+tqdm
+joblib
+geopy~=2.0.0
+networkx
+ey>=0.3.0,!=0.3.1
+pyarrow
+scipy
+cartopy
+geopandas
+matplotlib
+protobuf
