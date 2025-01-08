@@ -29,12 +29,18 @@ jobs: # 当前workflow中的所有任务
       with:
         python-version: '3.10'
         cache: 'pip'
+
+    - name: install pykoda
+      run: |
+        cd ML_Proj/pykoda
+        pip install setup.py
+        
     - name: install python packages
       run: |
         cd ML_Proj
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
+        
     - name: execute python workflows from bash script
      # env:
        # HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
