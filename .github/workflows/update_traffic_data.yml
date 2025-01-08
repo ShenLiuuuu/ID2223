@@ -30,6 +30,9 @@ jobs: # 当前workflow中的所有任务
         python-version: '3.10'
         cache: 'pip'
 
+    - name: Install 7z
+      run: choco install 7zip -y
+
     - name: install pykoda
       run: |
         cd ML_Proj/pykoda
