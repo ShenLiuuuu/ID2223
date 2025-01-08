@@ -3,7 +3,6 @@ pandas
 scikit-learn
 requests
 pykoda
-7z
 appdirs
 tqdm
 joblib
