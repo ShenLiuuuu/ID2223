@@ -16,11 +16,11 @@ This project focuses on predicting the probability of delays and expected delay 
 ### 1. `dailyDataPipeline.py`
 - Automates the daily data pipeline, including data download, processing, and cache cleanup.
 
-### 2. `mergeData.ipynb` and `merge_data.ipynb`
-- These Jupyter Notebooks are used for merging and analyzing data from different APIs, ensuring that both real-time and static data are properly integrated and verified.
+### 2. `mergeData.ipynb`
+- This Jupyter Notebooks are used for merging and analyzing data from traffic and weather APIs, ensuring that both real-time and static data are properly integrated and verified.
 
 ### 3. `interaction.ipynb`
-- Contains interactive steps for model training and prediction, allowing users to manually execute each step and observe results.
+- 需要补充 https://5db16d37b0788dbf2e.gradio.live
 
 ### 4. `XgisTruePredict.ipynb`
 - Handles experimental prediction logic for specific conditions, such as certain routes or weather patterns.
@@ -28,36 +28,12 @@ This project focuses on predicting the probability of delays and expected delay 
 ### 5. `config.ini`
 - Configuration file containing API keys, cache directories, and other adjustable parameters.
 
-### 6. `getdata.py`
-- Handles downloading real-time data from the public KoDa API. It supports several transit companies, including SL and Skånetrafiken.
-- Supported real-time feeds include:
-  - VehiclePositions
-  - TripUpdates
-  - ServiceAlerts
-
-### 7. `getstatic.py`
-- Responsible for downloading static GTFS data (such as routes and stops) from the public KoDa API.
-
-### 8. `gtfs_realtime_pb2.py`
-- A generated file using the `protobuf` compiler for parsing GTFS real-time data format.
-
-### 9. `datautils.py`
-- Contains utility functions for data processing, including:
-  - Downloading and caching data
-  - Cleaning redundant information
-  - Loading and merging static data with real-time data
-
-### 10. `requirements.txt`
+### 6. `requirements.txt`
 - Lists all the required Python libraries and their versions to ensure a consistent development environment.
 
-### 11. `output_csv/`
-- Stores processed data files for further analysis or prediction.
-
-### 12. `pykoda/`
+### 7. `pykoda/`
 - Core project module containing the main code for API interaction and data processing.
 
-### 13. `merged_output.zip`
-- Contains a compressed archive of the merged output data for offline analysis or model validation.
 
 ---
 
@@ -69,13 +45,11 @@ This project focuses on predicting the probability of delays and expected delay 
 
 ## Usage Instructions
 1. Configure the `config.ini` file to ensure the correct API keys are provided.
-2. Run `dailyDataPipeline.py` to automatically download and process daily data.
-3. Use `mergeData.ipynb` or `interaction.ipynb` for data analysis and model training.
+2. Install `requirements.txt`
+3. Use `mergeData.ipynb` for data analysis and model training.
 4. Run `XgisTruePredict.ipynb` to test the prediction model under specific conditions.
+5. Configure Github Action and periodical run `dailyDataPipeline.py` to automatically download and process daily data.
+6. `interaction.ipynb`需要补充
 
 ---
 
-## Future Improvements
-- Improve the accuracy of the prediction model, especially under extreme weather conditions.
-- Enhance the user interface to provide more intuitive delay information.
-- Expand support to include public transportation systems in other regions.
