@@ -31,7 +31,7 @@ jobs: # 当前workflow中的所有任务
         cache: 'pip'
 
     - name: Install 7z
-      run: choco install 7zip -y
+      run: sudo apt-get update && sudo apt-get install -y p7zip-full
 
     - name: install pykoda
       run: |
