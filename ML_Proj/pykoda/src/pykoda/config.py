@@ -11,7 +11,6 @@ import appdirs
 CALLER_DIR = os.getcwd()  # 当前工作目录
 CONFIG_FILE = os.path.join(CALLER_DIR, 'config.ini')
 
-
 if os.path.exists(CONFIG_FILE):
     parser = configparser.ConfigParser()
     parser.read(CONFIG_FILE)
