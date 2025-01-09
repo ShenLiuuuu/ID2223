@@ -36,10 +36,10 @@ jobs: # 当前workflow中的所有任务
     #     pip install -r requirements.txt
     #     pip install -e .
         
-    - name: install python packages
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+    # - name: install python packages
+    #   run: |
+    #     python -m pip install --upgrade pip
+    #     pip install -r requirements.txt
         
     - name: execute schedule_train
       run: |
