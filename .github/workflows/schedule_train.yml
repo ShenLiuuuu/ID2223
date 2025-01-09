@@ -36,9 +36,9 @@ jobs: # 当前workflow中的所有任务
         pip install -r requirements.txt
         pip install -e .
 
-    - name: install jupyter
-      run: |
-        pip install jupyter
+    # - name: install jupyter
+    #   run: |
+    #     pip install jupyter
         
     - name: install python packages
       run: |
