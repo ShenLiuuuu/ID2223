@@ -32,7 +32,7 @@ jobs: # 当前workflow中的所有任务
 
     - name: install jupyter
       run: |
-        pip install -r jupyter
+        pip install jupyter
         
     # - name: install python packages
     #   run: |
