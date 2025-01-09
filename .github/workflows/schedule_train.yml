@@ -1,0 +1,52 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Scheduling Train Predictive Model
+
+on: #当有以下操作时，运行具有上述on值的工作流程
+  workflow_dispatch:  # 手动触发
+  schedule:  # 凌晨5点自动触发
+    - cron: '0 5 * * *'
+
+jobs: # 当前workflow中的所有任务
+  schedule_update:  # 名字
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      contents: write
+    # strategy:
+    #   fail-fast: false
+      # matrix:
+      #   python-version: ["3.9", "3.10", "3.11"]
+
+    steps:
+    - name: checkout repo content
+      uses: actions/checkout@v4
+
+    - name: setup python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: install jupyter
+      run: |
+        pip install jupyter
+        
+    # - name: install python packages
+    #   run: |
+    #     python -m pip install --upgrade pip
+    #     pip install -r requirements.txt
+        
+    - name: execute schedule_train
+      run: |
+        jupyter nbconvert --to notebook --execute schedule_train.ipynb
+
+    - name: github pages publish
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+          commit_message: "New model trained"
+          commit_options: '--no-verify --signoff'
+          file_pattern: 'ML_Proj/output_model/*'
+          repository: .
