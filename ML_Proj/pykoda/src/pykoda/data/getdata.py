@@ -1,28 +1,3 @@
-'''
-This module is used to download the data from several feeds in the public KoDa API.
-
-Supported companies:
-- dintur - Västernorrlands län: Only GTFSStatic
-- dt - Dalatrafik
-- klt - Kalmar länstrafik
-- krono - Kronobergs Länstrafik: Only GTFSStatic
-- otraf - Östgötatrafiken
-- sj - SJ + Snälltåget + Tågab: Only GTFSStatic
-- skane - Skånetrafiken
-- sl - Stockholm län: All feeds without VehiclePositions
-- ul - Uppsala län
-- varm - Värmlandstrafik+Karlstadbuss
-- vt - Västtrafik: Only GTFSStatic
-- xt - X-trafik
-
-Supported feeds:
-- VehiclePositions
-- TripUpdates
-- ServiceAlerts
-
-Supported date format: YYYY-MM-DD and YYYY_MM_DD
-'''
-
 import gzip
 import json
 import tarfile
@@ -89,8 +64,8 @@ def unpack_jsons(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def _get_data_path(company: str, feed: str, date: str, hour: (int, str)) -> str:  #缓存文件的路径
-    return f'{config.CACHE_DIR}/{company}_{feed}_{date.replace("-", "_")}_{hour}.feather'
+def _get_data_path(company: str, feed: str, date: str, hour: (int, str)) -> str:  # 缓存文件的路径
+    return os.path.join(config.CACHE_DIR, f"{company}_{feed}_{date.replace('-', '_')}_{hour}.feather")
 
 
 def _parse_gtfs(gtfsrt: bytes) -> pd.DataFrame:  # 读入GTFS处理为json格式
@@ -174,11 +149,12 @@ def download_file(task):
             for chunk in req.iter_content(chunk_size=128):
                 f_out.write(chunk)
 
+
 def bz2_to_tar(bz2_file):
     folder = os.path.dirname(bz2_file)
     base_name = os.path.splitext(os.path.basename(bz2_file))[0]
-    decompressed_file = os.path.join(folder, base_name).replace("\\", "/")
-    tar_file = os.path.join(folder, f"{base_name}.tar").replace("\\", "/")
+    decompressed_file = os.path.join(folder, base_name)
+    tar_file = os.path.join(folder, f"{base_name}.tar")
 
     try:
         # 调用系统工具 7z 解压 .bz2 文件
@@ -234,7 +210,7 @@ def get_data(date: str, hour: (int, str), feed: str, company: str, output_file: 
         koda_url = f"https://koda.linkoping-ri.se/KoDa/api/v0.1?company={company}&feed={feed}&date={date}"  # todo: 改为stockholm的
     else:
         koda_url = f'https://koda.linkoping-ri.se/KoDa/api/v2/gtfs-rt/{company}/{feed}?date={date}&hour={hour}&key={config.API_KEY}'
-    out_path = f'{config.CACHE_DIR}/' + f'{company}-{feed}-{date}.bz2'.lower()
+    out_path = os.path.join(config.CACHE_DIR, f'{company}-{feed}-{date}.bz2').lower()
     download = ey.func(download_file, inputs={'url': koda_url}, outputs={'file': out_path})
 
     # Check the file:
@@ -308,4 +284,3 @@ def get_range(start_date, end_date, start_hour, end_hour, feed, company) -> None
         print("Date: ", date.strftime("%Y-%m-%d"))
         for hour in tqdm.tqdm(hour_range, leave=False, desc='Hours for ' + date.strftime("%Y-%m-%d")):
             get_data(f'{date.year:0>4}-{date.month:0>2}-{date.day:0>2}', hour, feed, company)
-

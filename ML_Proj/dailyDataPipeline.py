@@ -15,6 +15,21 @@ import pandas as pd
 import time
 import shutil
 
+
+def print_directory_tree(root_dir, indent_level=0):
+    """递归打印文件和文件夹树结构"""
+    # 获取当前目录下的所有文件和文件夹
+    items = os.listdir(root_dir)
+    
+    for item in items:
+        item_path = os.path.join(root_dir, item)
+        # 打印当前文件或文件夹
+        print("  " * indent_level + f"|- {item}")
+        # 如果是文件夹，则递归调用
+        if os.path.isdir(item_path):
+            print_directory_tree(item_path, indent_level + 1)
+
+
 def clean_cache_folder(folder_name: str):
     """
     如果指定文件夹存在，则删除该文件夹下的所有内容（文件与子文件夹）。
@@ -34,9 +49,10 @@ def clean_cache_folder(folder_name: str):
     else:
         print(f"未发现 {folder_name} 文件夹，无需删除。")
 
+
 def combine_with_existing_zip(
         new_data: pd.DataFrame,
-        zip_path: str = "merged_output.zip",
+        zip_path: str = os.path.join(os.getcwd(), "merged_output.zip"),
         csv_name: str = "merged_output.csv"
 ) -> pd.DataFrame:
     """
@@ -75,6 +91,7 @@ def combine_with_existing_zip(
     print(f"已将合并的数据写入到 {zip_path} 中 (文件名: {csv_name})，共 {len(final_df)} 行。")
     return final_df
 
+
 def run_pipeline(
     company: str = "sl",
     feed: str = "TripUpdates",
@@ -82,7 +99,7 @@ def run_pipeline(
     end_date: str = None,
     start_hour: int = 0,
     end_hour: int = 23,
-    output_dir: str = "./output_csv"
+    output_dir: str = os.path.join(os.getcwd(), "output_csv")
 ):
     """
     运行完整的数据获取、清洗、天气数据合并等流程，但不在本地生成任何中间 CSV。
@@ -260,10 +277,14 @@ def run_pipeline(
     print(f"已将 {len(merged)} 条新数据合并到 {zip_path}，合并后总计 {len(final_df)} 条。")
     return final_df
 
+
 if __name__ == "__main__":
     start_time = time.time()  # 开始计时
+    # current_dir = os.getcwd()
+    # print(f"Directory tree for: {current_dir}")
+    # print_directory_tree(current_dir)
 
-
+    clean_cache_folder("Cache")
     run_pipeline(
         company="sl",
         feed="TripUpdates",
@@ -272,7 +293,6 @@ if __name__ == "__main__":
         start_hour=0,
         end_hour=23
     )
-
     clean_cache_folder("Cache")
 
     end_time = time.time()  # 结束计时
