@@ -16,7 +16,6 @@ geopandas
 matplotlib
 protobuf
 jupyter
-os
-pathlib
-zipfile
+# pathlib
+# zipfile
 xgboost
