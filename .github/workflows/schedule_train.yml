@@ -43,7 +43,7 @@ jobs: # 当前workflow中的所有任务
         
     - name: execute schedule_train
       run: |
-        python schedule_train.py
+        jupyter nbconvert --to notebook --execute schedule_train.ipynb
 
     - name: github pages publish
       uses: stefanzweifel/git-auto-commit-action@v5
