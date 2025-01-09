@@ -15,3 +15,8 @@ cartopy
 geopandas
 matplotlib
 protobuf
+sklearn
+os
+pathlib
+zipfile
+xgboost
