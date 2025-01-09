@@ -15,7 +15,7 @@ cartopy
 geopandas
 matplotlib
 protobuf
-sklearn
+jupyter
 os
 pathlib
 zipfile
