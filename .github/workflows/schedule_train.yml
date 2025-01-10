@@ -51,6 +51,11 @@ jobs: # 当前workflow中的所有任务
         cd ML_Proj
         jupyter nbconvert --to notebook --execute schedule_train.ipynb
 
+    - name: Debug - List all files
+      run: |
+        echo "Checking files and directories..."
+        ls -R
+
     - name: github pages publish
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
