@@ -57,6 +57,6 @@ jobs: # 当前workflow中的所有任务
           commit_message: "New model trained"
           commit_options: '--no-verify --signoff'
           file_pattern: |
-            ML_Proj/output_model/**
-            ML_Proj/output_model/*.pkl
+            ML_Proj/model/**
+            ML_Proj/model/*.pkl
           repository: .
