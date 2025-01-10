@@ -16,24 +16,27 @@ This project focuses on predicting the probability of delays and expected delay 
 ### 1. `dailyDataPipeline.py`
 - Automates the daily data pipeline, including data download, processing, and cache cleanup.
 
-### 2. `mergeData.ipynb`
+### 2. `schedule_train.ipynb`
+- Automatically train the preditive model based on the updated data periodically. 
+
+### 3. `mergeData.ipynb`
 - This Jupyter Notebooks are used for merging and analyzing data from traffic and weather APIs, ensuring that both real-time and static data are properly integrated and verified
 
-### 3. `XgisTruePredict.ipynb`
+### 4. `XgisTruePredict.ipynb`
 - Handles experimental prediction logic for specific conditions, such as certain routes or weather patterns.
 
-### 4. `interaction.ipynb`
+### 5. `interaction.ipynb`
 - Creates an interative interface using Gradio and the interface can be accessed via URL: https://5db16d37b0788dbf2e.gradio.live
 - Users can type "date", "time" and "stop_id" to obtain the predicted delay probability.
 - The delay probability is computed by the predictive model trained in `XgisTruePredict.ipynb` notebook.
 
-### 5. `config.ini`
+### 6. `config.ini`
 - Configuration file containing API keys, cache directories, and other adjustable parameters.
 
-### 6. `requirements.txt`
+### 7. `requirements.txt`
 - Lists all the required Python libraries and their versions to ensure a consistent development environment.
 
-### 7. `pykoda/`
+### 8. `pykoda/`
 - Core project module containing the main code for API interaction and data processing.
 
 
@@ -51,7 +54,8 @@ This project focuses on predicting the probability of delays and expected delay 
 3. Use `mergeData.ipynb` for data analysis and model training.
 4. Run `XgisTruePredict.ipynb` to test the prediction model under specific conditions.
 5. Configure Github Action and periodical run `dailyDataPipeline.py` to automatically download and process daily data.
-6. Run `interaction.ipynb` or visit the hosted Gradio link 'https://5db16d37b0788dbf2e.gradio.live' to access the interative interface.
+6. Configure Github Action and periodical run `schedule_train.ipynb` to automatically train the predictive model using updated data.
+7. Run `interaction.ipynb` or visit the hosted Gradio link 'https://5db16d37b0788dbf2e.gradio.live' to access the interative interface.
 
 ---
 
