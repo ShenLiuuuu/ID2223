@@ -58,6 +58,6 @@ jobs: # 当前workflow中的所有任务
           commit_message: "New data merged"
           commit_options: '--no-verify --signoff'
 
-          file_pattern: 'ML_Proj/output_csv/*'
+          file_pattern: ML_Proj/Cache/zip
 
           repository: .
